@@ -1,8 +1,8 @@
-use actix_web::{get, HttpResponse, Responder, web};
-use actix_web::http::header::ContentType;
 use crate::model::{Info, Sunny, SunnyData};
 use crate::request;
 use crate::utils::Utils;
+use actix_web::http::header::ContentType;
+use actix_web::{get, web, HttpResponse, Responder};
 
 #[get("/get_sunny_list")]
 async fn get_sunny_list(info: web::Query<Info>) -> impl Responder {
@@ -45,8 +45,8 @@ async fn get_sunny_info(info: web::Query<Info>) -> impl Responder {
     let password = info.password.clone();
     let utils = Utils::new(requests.get_result(username, password).await);
     let sunny_data = SunnyData {
-        count: utils.get_count(),
-
+        count: utils.get_count().count,
+        am_count: utils.get_count().am_count,
         average_speed: utils.get_average_speed(),
     };
     HttpResponse::Ok()

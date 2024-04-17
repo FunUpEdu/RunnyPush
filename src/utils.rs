@@ -2,14 +2,12 @@ pub struct Utils {
     data: Vec<String>,
 }
 pub struct UtilsCount {
-    count : i32,
-    am_count : i32,
+    pub count: i32,
+    pub am_count: i32,
 }
 impl Utils {
     pub fn new(data: Vec<String>) -> Utils {
-        Utils {
-            data
-        }
+        Utils { data }
     }
     pub fn get_count(&self) -> UtilsCount {
         let mut index = 0;
@@ -32,13 +30,16 @@ impl Utils {
         let mut sum = 0.0;
         for key in self.data.iter() {
             if key.contains("true") {
-                if let Ok(temp_speed) = key.split("-").collect::<Vec<&str>>()[2].replace(" m/s", "").parse::<f32>() {
+                if let Ok(temp_speed) = key.split("-").collect::<Vec<&str>>()[2]
+                    .replace(" m/s", "")
+                    .parse::<f32>()
+                {
                     sum = sum + temp_speed;
                 } else {
                     index = index - 1;
                 }
             }
         }
-        format!("{:2}",sum / index as f32)
+        format!("{:2}", sum / index as f32)
     }
 }
