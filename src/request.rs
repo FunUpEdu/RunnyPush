@@ -1,5 +1,5 @@
+use percent_encoding::{AsciiSet, CONTROLS, utf8_percent_encode};
 use reqwest::{self, Client, redirect};
-use percent_encoding::{utf8_percent_encode, AsciiSet, CONTROLS};
 use select::document::Document;
 
 const QUERY_SET: &AsciiSet = &CONTROLS.add(b' ').add(b'"').add(b'#').add(b'<').add(b'>').add(b'?').add(b'[').add(b']');
@@ -106,6 +106,7 @@ impl Request {
                     let mut temp_year = String::new();
                     let mut temp_meters = String::new();
                     let mut temp_speed = String::new();
+                    let mut temp_period = String::new();
                     let mut temp_ok = false;
                     let mut ok = false;
                     for td in td_list {
@@ -117,6 +118,9 @@ impl Request {
                         }
                         if td.text().contains("m/s") {
                             temp_speed.push_str(td.text().as_str());
+                        }
+                        if td.text().contains("午") {
+                            temp_period.push_str(td.text().as_str())
                         }
                         if !temp_year.is_empty() && !temp_meters.is_empty() && !temp_speed.is_empty() {
                             if let Some(span) = td.find(select::predicate::Name("span")).next() {
@@ -134,7 +138,7 @@ impl Request {
                                 }
                             }
                             if temp_ok {
-                                sunny_list.push(format!("{}-{}-{}-{}", temp_year, temp_meters, temp_speed, {
+                                sunny_list.push(format!("{}-{}-{}-{}-{}", temp_year, temp_period, temp_meters, temp_speed, {
                                     if ok {
                                         "true"
                                     } else {

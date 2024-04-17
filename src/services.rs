@@ -14,8 +14,9 @@ async fn get_sunny_list(info: web::Query<Info>) -> impl Responder {
     for sunny in sunny_list {
         let data_list = sunny.split("-").collect::<Vec<&str>>();
         let time = data_list[0].to_string();
-        let meters = data_list[1].to_string();
-        let speed = data_list[2].to_string();
+        let period = data_list[1].to_string();
+        let meters = data_list[2].to_string();
+        let speed = data_list[3].to_string();
         let ok = {
             if data_list[3] == "true" {
                 true
@@ -25,6 +26,7 @@ async fn get_sunny_list(info: web::Query<Info>) -> impl Responder {
         };
         let sunny = Sunny {
             time,
+            period,
             meters,
             speed,
             ok,
@@ -44,6 +46,7 @@ async fn get_sunny_info(info: web::Query<Info>) -> impl Responder {
     let utils = Utils::new(requests.get_result(username, password).await);
     let sunny_data = SunnyData {
         count: utils.get_count(),
+
         average_speed: utils.get_average_speed(),
     };
     HttpResponse::Ok()

@@ -1,6 +1,3 @@
-use actix_web::body::BoxBody;
-use actix_web::{HttpRequest, HttpResponse, Responder};
-use actix_web::http::header::ContentType;
 use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize)]
@@ -12,6 +9,7 @@ pub struct Info {
 #[derive(Serialize, Deserialize)]
 pub struct SunnyData {
     pub count: i32,
+    pub am_count : i32,
     pub average_speed: f32,
 }
 
@@ -23,6 +21,7 @@ pub struct SunnyList {
 #[derive(Serialize, Deserialize)]
 pub struct Sunny {
     pub time: String,
+    pub period :String,
     pub meters: String,
     pub speed: String,
     pub ok: bool,
