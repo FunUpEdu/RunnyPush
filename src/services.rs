@@ -45,8 +45,8 @@ async fn get_sunny_info(info: web::Query<Info>) -> impl Responder {
     let password = info.password.clone();
     let utils = Utils::new(requests.get_result(username, password).await);
     let sunny_data = SunnyData {
-        count: utils.get_count().count,
-        am_count: utils.get_count().am_count,
+        count: utils.get_count().count.to_string(),
+        am_count: utils.get_count().am_count.to_string(),
         average_speed: utils.get_average_speed(),
     };
     HttpResponse::Ok()

@@ -25,7 +25,7 @@ impl Utils {
             am_count: index_2,
         }
     }
-    pub fn get_average_speed(&self) -> f32 {
+    pub fn get_average_speed(&self) -> String {
         let mut index = self.get_count().count;
         let mut sum = 0.0;
         for key in self.data.iter() {

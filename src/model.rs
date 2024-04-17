@@ -8,9 +8,9 @@ pub struct Info {
 
 #[derive(Serialize, Deserialize)]
 pub struct SunnyData {
-    pub count: i32,
-    pub am_count : i32,
-    pub average_speed: f32,
+    pub count: String,
+    pub am_count: String,
+    pub average_speed: String,
 }
 
 #[derive(Serialize, Deserialize)]
@@ -21,7 +21,7 @@ pub struct SunnyList {
 #[derive(Serialize, Deserialize)]
 pub struct Sunny {
     pub time: String,
-    pub period :String,
+    pub period: String,
     pub meters: String,
     pub speed: String,
     pub ok: bool,
